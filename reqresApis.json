@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "4c5606f0-3b82-4fec-a9f6-6b9a185e631a",
+		"name": "reqresApis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://reqres.in/api/users?page=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56741fab-5569-4f08-914b-d225c1ce418a",
+						"exec": [
+							"tests[\"Validating Status Code\"] = responseCode.code === 200;\r",
+							"tests[\"Validating Response Body\"] = responseBody.has(\"data\");\r",
+							"tests[\"Validating\"] = responseBody.has(\"michael.lawson@reqres.in\");\r",
+							"var response = JSON.parse(responseBody);\r",
+							"tests[\"page No\"] = response.page === 2;\r",
+							"tests[\"total\"] = response.total === 12;\r",
+							"tests[\"total_page\"] = response.total_pages === 2;\r",
+							"tests[\"per-page\"] = response.per_page === 6;\r",
+							"tests[\"First name\"] = response.data[0].first_name === \"Michael\";\r",
+							"tests[\"last name\"]  = response.data[0].last_name === \"Lawson\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{reqresUrl}}/api/users?page=2",
+					"host": [
+						"{{reqresUrl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SingleUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc9e44e8-3b5e-4168-98c0-91aa48324d91",
+						"exec": [
+							"tests[\"Status Code\"] = responseCode.code == 200;\r",
+							"var response = JSON.parse(responseBody);\r",
+							"tests[\"ID No\"] = response.data.id == 2;\r",
+							"tests[\"Email\"] = response.data.email == \"janet.weaver@reqres.in\";\r",
+							"tests[\"Verify First Name\"] = response.data.first_name == \"Janet\";\r",
+							"tests[\"Verify Last Name\"] = response.data.last_name == \"Weaver\";\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{reqresUrl}}/api/users/2",
+					"host": [
+						"{{reqresUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createNewUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a4567ff-5d85-4b3a-8dc2-3724a99a790b",
+						"exec": [
+							"tests[\"validate status code\"] = responseCode.code == 201;\r",
+							"var response = JSON.parse(responseBody);\r",
+							"tests[\"validate name\"] = response.name == \"Dolkun\";\r",
+							"tests[\"validate job\"]  = response.Job == \"Tester\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Dolkun\", \"Job\": \"Tester\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{reqresUrl}}/api/users",
+					"host": [
+						"{{reqresUrl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogInPostRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8250b5-73e7-479b-a45a-6297e1da9fa1",
+						"exec": [
+							"tests[\"Verify token is present\"] =  responseBody.has(\"Missing password\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"eve.holt@reqres.in\"\r\n      \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{reqresUrl}}/api/login",
+					"host": [
+						"{{reqresUrl}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
